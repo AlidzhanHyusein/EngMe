@@ -2,34 +2,33 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, connectAuthEmulator } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
-import firebaseConfig from "../firebase-applet-config.json";
+const firebaseConfig = {
+  apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId:         import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket:     import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             import.meta.env.VITE_FIREBASE_APP_ID,
+};
+
+const firestoreDatabaseId = import.meta.env.VITE_FIREBASE_DATABASE_ID || "(default)";
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const db = getFirestore(app, firestoreDatabaseId);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Only connect to emulators when explicitly enabled via env var.
-// Set VITE_USE_EMULATORS=true in a .env.local file for local dev.
-// Production builds will use the real Firebase services automatically.
-export const USE_EMULATORS =
-  import.meta.env.VITE_USE_EMULATORS === "true" ||
-  import.meta.env.DEV === true && import.meta.env.VITE_USE_EMULATORS !== "false";
+export const USE_EMULATORS = import.meta.env.VITE_USE_EMULATORS === "true";
 
 if (USE_EMULATORS) {
   try {
     connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
-    console.log("✅ Connected to Auth emulator");
-  } catch {
-    console.warn("⚠️ Could not connect to Auth emulator");
-  }
-
+    console.log("✅ Auth emulator connected");
+  } catch {}
   try {
     connectFirestoreEmulator(db, "localhost", 8081);
-    console.log("✅ Connected to Firestore emulator");
-  } catch {
-    console.warn("⚠️ Could not connect to Firestore emulator");
-  }
+    console.log("✅ Firestore emulator connected");
+  } catch {}
 } else {
   console.log("🔥 Using production Firebase");
 }
