@@ -31,7 +31,7 @@ const LandingPage = ({ onGetStarted }: { onGetStarted: () => void }) => {
             transition={{ delay: 0.1 }}
             className="text-6xl md:text-8xl font-black tracking-tighter text-on-surface leading-[0.9]"
           >
-            THE <span className="text-primary">ATELIER</span>
+            THE <span className="text-primary">ENGME</span>
           </motion.h1>
 
           <motion.p
@@ -122,7 +122,7 @@ const LandingPage = ({ onGetStarted }: { onGetStarted: () => void }) => {
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg">
               <Zap className="w-6 h-6 fill-white" />
             </div>
-            <span className="text-xl font-black tracking-tight">ATELIER</span>
+            <span className="text-xl font-black tracking-tight">ENGME</span>
           </div>
           <p className="text-on-surface-variant text-sm font-medium">© 2026 Atelier Kinetic Workspace. All rights reserved.</p>
           <div className="flex gap-6">

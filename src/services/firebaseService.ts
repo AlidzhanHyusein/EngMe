@@ -1,7 +1,24 @@
-import {collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, limit, Timestamp, getDocFromServer, getFirestore, connectFirestoreEmulator} from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  query,
+  where,
+  orderBy,
+  limit,
+  Timestamp,
+  getDocFromServer,
+  getFirestore,
+  connectFirestoreEmulator,
+} from "firebase/firestore";
 import {initializeApp, getApp, getApps} from "firebase/app";
 import {getAuth, connectAuthEmulator, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {auth, db} from "../firebase";
+import {db, auth, googleProvider} from "../firebase";
 import firebaseConfig from "../../firebase-applet-config.json";
 import {UserProfile, WorkspaceTask, FeedItem, TaskStatus, Reward, RewardRedemption, Notification} from "../types";
 
@@ -257,37 +274,28 @@ export async function toggleReaction(itemId: string, userId: string, reactionTyp
 // Creates the new account using a secondary Firebase app so the HR user
 // stays signed-in, then writes the Firestore profile **as the new user**
 // (using secondaryDb) so that request.auth.uid == userId always holds.
-export async function registerUserByHR(userData: {
-  email: string;
-  password: string;
-  displayName: string;
-  department: string;
-}) {
-  const useEmulators =
-    import.meta.env.VITE_USE_EMULATORS === "true" ||
-    (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS !== "false");
+export async function registerUserByHR(userData: {email: string; password: string; displayName: string; department: string}) {
+  const useEmulators = import.meta.env.VITE_USE_EMULATORS === "true" || (import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS !== "false");
 
   // Reuse or create the secondary Firebase app
-  const secondaryApp =
-    getApps().find((a) => a.name === "secondary") ??
-    initializeApp(firebaseConfig, "secondary");
+  const secondaryApp = getApps().find((a) => a.name === "secondary") ?? initializeApp(firebaseConfig, "secondary");
 
   const secondaryAuth = getAuth(secondaryApp);
   const secondaryDb = getFirestore(secondaryApp, firebaseConfig.firestoreDatabaseId);
 
   // Mirror emulator settings on the secondary instances
   if (useEmulators) {
-    try { connectAuthEmulator(secondaryAuth, "http://localhost:9099", { disableWarnings: true }); } catch {}
-    try { connectFirestoreEmulator(secondaryDb, "localhost", 8081); } catch {}
+    try {
+      connectAuthEmulator(secondaryAuth, "http://localhost:9099", {disableWarnings: true});
+    } catch {}
+    try {
+      connectFirestoreEmulator(secondaryDb, "localhost", 8081);
+    } catch {}
   }
 
   try {
     // 1. Create the Firebase Auth account (secondary app — HR stays logged in)
-    const userCredential = await createUserWithEmailAndPassword(
-      secondaryAuth,
-      userData.email,
-      userData.password
-    );
+    const userCredential = await createUserWithEmailAndPassword(secondaryAuth, userData.email, userData.password);
     const user = userCredential.user;
 
     // 2. Build the profile object
@@ -314,7 +322,7 @@ export async function registerUserByHR(userData: {
     try {
       await fetch("/api/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
           email: userData.email,
           password: userData.password,

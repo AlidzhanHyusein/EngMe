@@ -113,6 +113,10 @@ import QuickTipsModal from "./components/QuickTipsModal";
 import BadgeAwardPopup from "./components/BadgeAwardPopup";
 import NavItem from "./components/NavItem";
 import BadgeList from "./components/BadgeList";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import logo from "./img/Engme logo@4x.png";
+
+
 
 
 // Reusable avatar that falls back to initials when photo fails to load
@@ -415,12 +419,16 @@ export default function App() {
       <div className="min-h-screen bg-surface text-on-surface flex flex-col md:flex-row">
 
         {/* ── DESKTOP SIDEBAR ── */}
+
         <aside className="hidden md:flex w-64 bg-surface-container-low border-r border-outline-variant/10 flex-col sticky top-0 h-screen z-50">
           <div className="p-6 flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg" style={{ backgroundColor: "var(--primary, #4a40e0)" }}>
-              <Zap className="w-6 h-6 fill-white" />
-            </div>
-            <span className="font-headline font-black text-xl tracking-tight text-primary">Atelier</span>
+            {/* FIXED: Removed the background div/Zap icon and placed the logo directly */}
+            <img 
+              src={logo}
+              alt="ENGME Logo" 
+              className="w-10 h-10 object-contain rounded-xl shadow-lg shadow-primary/10" 
+            />
+            <span className="font-headline font-black text-xl tracking-tight text-primary">ENGME</span>
           </div>
 
           <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
@@ -463,7 +471,11 @@ export default function App() {
             <div className="flex items-center justify-between px-4 h-14">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white shadow-md" style={{ backgroundColor: "var(--primary, #4a40e0)" }}>
-                  <Zap className="w-4 h-4 fill-white" />
+                  <img 
+        src={logo} 
+        alt="ENGME Logo" 
+        className="w-8 h-8 object-contain rounded-lg shadow-md" 
+      />
                 </div>
                 <span className="font-black text-base tracking-tight text-primary">
                   {tabLabel[activeTab] || activeTab}
