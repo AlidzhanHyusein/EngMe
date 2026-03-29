@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Color Palette - Material 3 inspired */
+  --color-primary: var(--primary, #4a40e0);
+  --color-on-primary: #ffffff;
+  --color-primary-container: var(--primary-container, #e2e0ff);
+  --color-on-primary-container: #00006e;
+
+  --color-secondary: #ff6b35;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ffdbcf;
+  --color-on-secondary-container: #331200;
+
+  --color-tertiary: #006a6a;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #6ff7f6;
+  --color-on-tertiary-container: #002020;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #410002;
+
+  --color-surface: #fdfbff;
+  --color-on-surface: #1b1b1f;
+  --color-surface-variant: #e3e1ec;
+  --color-on-surface-variant: #46464f;
+  
+  --color-outline: #777680;
+  --color-outline-variant: #c7c5d0;
+
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f3f7;
+  --color-surface-container: #eeedf1;
+  --color-surface-container-high: #e8e7eb;
+  --color-surface-container-highest: #e2e1e6;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-primary: var(--primary, #bec2ff);
+  --color-on-primary: #00006e;
+  --color-primary-container: var(--primary-container, #2f25c7);
+  --color-on-primary-container: #e2e0ff;
+
+  --color-secondary: #ffb59a;
+  --color-on-secondary: #5f1500;
+  --color-secondary-container: #862200;
+  --color-on-secondary-container: #ffdbcf;
+
+  --color-tertiary: #4cdada;
+  --color-on-tertiary: #003737;
+  --color-tertiary-container: #004f4f;
+  --color-on-tertiary-container: #6ff7f6;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --color-surface: #1b1b1f;
+  --color-on-surface: #e3e1ec;
+  --color-surface-variant: #46464f;
+  --color-on-surface-variant: #c7c5d0;
+  
+  --color-outline: #91909a;
+  --color-outline-variant: #46464f;
+
+  --color-surface-container-lowest: #0f0f13;
+  --color-surface-container-low: #1b1b1f;
+  --color-surface-container: #1f1f23;
+  --color-surface-container-high: #2a292f;
+  --color-surface-container-highest: #35343a;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-container-low;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-outline-variant rounded-full hover:bg-outline transition-colors;
+}

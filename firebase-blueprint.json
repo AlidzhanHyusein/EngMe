@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user profile in The Atelier.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique identifier for the user." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "email": { "type": "string", "description": "The user's email address." },
+        "photoURL": { "type": "string", "description": "The user's profile photo URL." },
+        "role": { "type": "string", "enum": ["admin", "hr", "member"], "description": "The user's role." },
+        "department": { "type": "string" },
+        "team": { "type": "string" },
+        "bio": { "type": "string" },
+        "points": { "type": "number", "description": "Total points earned by the user." },
+        "streak": { "type": "number", "description": "Current daily streak." },
+        "badges": { "type": "array", "items": { "type": "string" }, "description": "Badges earned by the user." },
+        "onboarded": { "type": "boolean" }
+      },
+      "required": ["uid", "displayName", "email", "role", "onboarded"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A mission or task in the workspace.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["Work", "Fun", "Wellness"] },
+        "difficulty": { "type": "string", "enum": ["Entry", "Intermediate", "Advanced", "Epic"] },
+        "points": { "type": "number" },
+        "assignedTo": { "type": "array", "items": { "type": "string" }, "description": "List of team names or user UIDs." },
+        "status": { "type": "string", "enum": ["todo", "in-progress", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "points", "status"]
+    },
+    "FeedItem": {
+      "title": "FeedItem",
+      "description": "A social post or milestone update.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["post", "milestone", "streak"] },
+        "likes": { "type": "array", "items": { "type": "string" }, "description": "List of user UIDs who liked the post." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorUid", "content", "type", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Workspace tasks."
+    },
+    "/feed/{itemId}": {
+      "schema": "FeedItem",
+      "description": "Social feed items."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{"users": [
+{
+  "localId": "5jGWc2h5DJXC8Q66fc9qCGsp80r2",
+  "email": "alidzanhasan9@gmail.com",
+  "emailVerified": true,
+  "displayName": "Алиджан Хасан",
+  "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKtPo0IgbzfkUj8CSN4USU8mrmpyT7fMRRvXpnFBjwxRBSLdw=s96-c",
+  "lastSignedInAt": "1774713970547",
+  "createdAt": "1774699112432",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "117767577096624155456",
+      "email": "alidzanhasan9@gmail.com",
+      "displayName": "Алиджан Хасан",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKtPo0IgbzfkUj8CSN4USU8mrmpyT7fMRRvXpnFBjwxRBSLdw=s96-c"
+    }
+  ]
+},
+{
+  "localId": "D7eJB1I7QZb1zWEYOuieN5rgsp12",
+  "email": "ahmedovvv120@gmail.com",
+  "emailVerified": true,
+  "displayName": "Alidzhan",
+  "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKh9wSWr47x73e2zNhqGY-MeRfxStE8gEMNICnbdu0T35LHgA=s96-c",
+  "lastSignedInAt": "1774712458943",
+  "createdAt": "1774699298552",
+  "customAttributes": "{\"role\":\"hr\"}",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "117275093074985950843",
+      "email": "ahmedovvv120@gmail.com",
+      "displayName": "Alidzhan",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKh9wSWr47x73e2zNhqGY-MeRfxStE8gEMNICnbdu0T35LHgA=s96-c"
+    }
+  ]
+}]}
